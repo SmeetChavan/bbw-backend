@@ -6,7 +6,7 @@ import { isAdmin, isAuthenticated } from '../middlewares/auth.js';
 const router = express.Router();
 
 router.get("/" , (req , res)=> {
-    res.send("Hey");
+    res.send("Hello");
 })
 
 router.get("/googlelogin" , passport.authenticate("google" , {
