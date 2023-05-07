@@ -31,6 +31,11 @@ export const instance = new Razorpay({
 
 // Using Middlewares
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});  
+
 app.use(session({
     name: "CookieName",
     secret: process.env.SESSION_SECRET,
