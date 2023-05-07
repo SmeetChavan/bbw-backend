@@ -13,9 +13,7 @@ router.get("/googlelogin" , passport.authenticate("google" , {
     scope: ["profile"],
 }))
 
-router.get("/login" , passport.authenticate("google" , {
-    successRedirect: process.env.FRONTEND__URL,
-}) , (req , res , next) => {
+router.get("/login" , passport.authenticate("google") , (req , res , next) => {
     res.status(200).send("Logged In");
 })
 
