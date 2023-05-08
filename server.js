@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 import { connectPassport } from './utils/Provider.js'
-// import session from 'express-session';
+import session from 'express-session';
 import cookieSession from 'cookie-session';
 
 import Razorpay from 'razorpay';
