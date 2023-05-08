@@ -16,16 +16,16 @@ import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 import cors from 'cors';
 
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {console.log("Connected to db")})
+.catch((error) => {console.log(error)})
+
+
 const app = express();
 
 dotenv.config({
     path:"./config/.env",
 });
-
-
-mongoose.connect(process.env.MONGO_URI)
-.then(() => {console.log("Connected to db")})
-.catch((error) => {console.log(error)})
 
 
 export const instance = new Razorpay({
@@ -53,15 +53,17 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({extended: true}));
 
-app.use(passport.authenticate("session"));
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(cors({
     credentials: true,
     origin: process.env.FRONTEND_URL,
     methods: ["GET" , "POST" , "PUT" , "DELETE"],
 }));
+
+
+app.use(passport.authenticate("session"));
+app.use(passport.initialize());
+app.use(passport.session());
+app.enable("trust proxy");
 
 connectPassport();
 
@@ -72,10 +74,8 @@ app.get("/", (req, res, next) => {
 app.use("/api/v1" , userRoutes);
 app.use("/api/v1" , orderRoutes);
 
-app.enable("trust proxy");
 
 app.use(errorMiddleware);
-
 
 
 app.listen(process.env.PORT , () => {
