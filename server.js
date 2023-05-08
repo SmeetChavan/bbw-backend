@@ -47,7 +47,6 @@ app.use(session({
     // }
 }));
 
-app.use(errorMiddleware);
 
 app.use(cors({
     credentials: true,
@@ -70,11 +69,12 @@ app.get("/", (req, res, next) => {
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", orderRoutes);
 
+app.use(errorMiddleware);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => { console.log("Connected to db") })
     .catch((error) => { console.log(error) })
-
-app.listen(process.env.PORT, () => {
-    console.log(`Listening on port ${process.env.PORT}... You are in ${process.env.NODE_ENV} mode`);
-})
+    
+    app.listen(process.env.PORT, () => {
+        console.log(`Listening on port ${process.env.PORT}... You are in ${process.env.NODE_ENV} mode`);
+    })
