@@ -32,7 +32,7 @@ export const instance = new Razorpay({
 // Using Middlewares
 
 app.use(session({
-    name: "CookieName",
+    name: "connect.sid",
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
