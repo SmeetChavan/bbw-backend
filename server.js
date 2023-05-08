@@ -55,7 +55,7 @@ app.use(urlencoded({extended: true}));
 
 app.use(cors({
     credentials: true,
-    origin: '*',
+    origin: process.env.FRONTEND_URL,
     methods: ["GET" , "POST" , "PUT" , "DELETE"],
 }));
 
