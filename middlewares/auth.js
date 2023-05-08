@@ -2,7 +2,7 @@ import ErrorHandler from "../utils/ErrorHandler.js";
 
 export const isAuthenticated = (req , res , next) => {
 
-    const token = req.cookies["CookieName"];
+    const token = req.cookies["connect.sid"];
 
     if(!token){
         console.log("No cookie found");
