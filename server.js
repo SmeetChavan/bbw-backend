@@ -23,6 +23,11 @@ dotenv.config({
 });
 
 
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {console.log("Connected to db")})
+.catch((error) => {console.log(error)})
+
+
 export const instance = new Razorpay({
     key_id: process.env.RAZORPAY_API_KEY,
     key_secret: process.env.RAZORPAY_API_SECRET,
@@ -60,18 +65,18 @@ app.use(cors({
 
 connectPassport();
 
+app.get("/", (req, res, next) => {
+    res.send("<h1>Working</h1>");
+});
 
-app.use("/api/v1/" , userRoutes);
-app.use("/api/v1/" , orderRoutes);
+app.use("/api/v1" , userRoutes);
+app.use("/api/v1" , orderRoutes);
 
 app.enable("trust proxy");
 
 app.use(errorMiddleware);
 
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => {console.log("Connected to db")})
-.catch((error) => {console.log(error)})
 
 app.listen(process.env.PORT , () => {
     console.log(`Listening on port ${process.env.PORT}... You are in ${process.env.NODE_ENV} mode`);
