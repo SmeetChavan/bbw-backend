@@ -2,7 +2,7 @@ import express, { urlencoded } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
-import {connectPassport} from './utils/Provider.js'
+import { connectPassport } from './utils/Provider.js'
 // import session from 'express-session';
 import cookieSession from 'cookie-session';
 
@@ -18,12 +18,12 @@ import { errorMiddleware } from './middlewares/errorMiddleware.js';
 import cors from 'cors';
 
 const app = express();
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(express.json());
-app.use(urlencoded({extended: true}));
+app.use(urlencoded({ extended: true }));
 
 dotenv.config({
-    path:"./config/.env",
+    path: "./config/.env",
 });
 
 
@@ -35,35 +35,23 @@ export const instance = new Razorpay({
 
 // Using Middlewares
 
-// app.use(session({
-    //     name: 'cookiename',
-    //     secret: process.env.SESSION_SECRET,
-    //     resave: false,
-    //     saveUninitialized: false,
-    
-    //     cookie:{
-        //         secure: false,
-        //         httpOnly: false,
-        //         sameSite: false,
-        //     }
-// }));
-
-app.use(cookieSession({
+app.use(session({
     name: 'cookiename',
     secret: process.env.SESSION_SECRET,
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    secure: false,
-    httpOnly: false,
-    sameSite: false,
+    resave: false,
+    saveUninitialized: false,
+
+    cookie: {
+        secure: false,
+        httpOnly: false,
+        sameSite: false,
+    }
 }));
-
-
-
 
 app.use(cors({
     credentials: true,
     origin: process.env.FRONTEND_URL,
-    methods: ["GET" , "POST" , "PUT" , "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
 
@@ -78,16 +66,16 @@ app.get("/", (req, res, next) => {
     res.send("<h1>Working</h1>");
 });
 
-app.use("/api/v1" , userRoutes);
-app.use("/api/v1" , orderRoutes);
+app.use("/api/v1", userRoutes);
+app.use("/api/v1", orderRoutes);
 
 app.use(errorMiddleware);
 
 
 mongoose.connect(process.env.MONGO_URI)
-.then(() => {console.log("Connected to db")})
-.catch((error) => {console.log(error)})
+    .then(() => { console.log("Connected to db") })
+    .catch((error) => { console.log(error) })
 
-app.listen(process.env.PORT , () => {
+app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}... You are in ${process.env.NODE_ENV} mode`);
 })
