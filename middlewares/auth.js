@@ -6,7 +6,7 @@ export const isAuthenticated = (req , res , next) => {
 
     if(!token){
         console.log("No cookie found");
-        return next(new ErrorHandler("Not Logged In" , 401));
+        return next(new ErrorHandler("Not Logged In" , 469));
     }
 
     console.log(token);
