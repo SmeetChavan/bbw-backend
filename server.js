@@ -4,7 +4,6 @@ import mongoose from 'mongoose';
 
 import { connectPassport } from './utils/Provider.js'
 import session from 'express-session';
-import cookieSession from 'cookie-session';
 
 import Razorpay from 'razorpay';
 
@@ -41,11 +40,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 
-    cookie: {
-        secure: false,
-        httpOnly: false,
-        sameSite: false,
-    }
+    // cookie: {
+    //     secure: false,
+    //     httpOnly: false,
+    //     sameSite: false,
+    // }
 }));
 
 app.use(cors({

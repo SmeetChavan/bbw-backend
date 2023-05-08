@@ -16,12 +16,12 @@ export const logout = (req , res , next) => {
 
         if(err) return next(err);
 
-        // res.clearCookie('CookieName');
-        res.clearCookie("cookie.sid" , {
-            secure: false,
-            httpOnly: false,
-            sameSite: false,
-        });
+        res.clearCookie('cookiename');
+        // res.clearCookie("cookie.sid" , {
+        //     secure: false,
+        //     httpOnly: false,
+        //     sameSite: false,
+        // });
 
         res.status(200).json({
             message: "Logged Out",
