@@ -16,8 +16,8 @@ export const logout = (req , res , next) => {
 
         if(err) return next(err);
 
-        res.clearCookie('cookiename');
-        res.clearCookie("cookie.sid" , {
+        // res.clearCookie('cookiename');
+        res.clearCookie('cookiename' , {
             secure: false,
             httpOnly: false,
             sameSite: false,
