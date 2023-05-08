@@ -36,8 +36,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(allowOrigin('http://localhost:3000'));
-
 app.use(session({
     name: "CookieName",
     secret: process.env.SESSION_SECRET,
