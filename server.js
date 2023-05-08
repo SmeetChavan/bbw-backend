@@ -34,7 +34,9 @@ export const instance = new Razorpay({
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     next();
-});  
+});
+
+app.use(allowOrigin('http://localhost:3000'));
 
 app.use(session({
     name: "CookieName",
