@@ -41,11 +41,13 @@ app.use(session({
     saveUninitialized: false,
 
     // cookie: {
-    //     secure: false,
-    //     httpOnly: false,
-    //     sameSite: false,
-    // }
-}));
+        //     secure: false,
+        //     httpOnly: false,
+        //     sameSite: false,
+        // }
+    }));
+    
+app.use(errorMiddleware);
 
 app.use(cors({
     credentials: true,
@@ -67,8 +69,6 @@ app.get("/", (req, res, next) => {
 
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", orderRoutes);
-
-app.use(errorMiddleware);
 
 
 mongoose.connect(process.env.MONGO_URI)
