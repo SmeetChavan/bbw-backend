@@ -40,21 +40,19 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 
-    cookie: {
-            secure: false,
-            httpOnly: false,
-            sameSite: false,
-        }
-    }));
-    
+    // cookie: {
+    //     secure: false,
+    //     httpOnly: false,
+    //     sameSite: false,
+    // }
+}));
+
 app.use(errorMiddleware);
 
 app.use(cors({
     credentials: true,
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 
