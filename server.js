@@ -37,15 +37,15 @@ export const instance = new Razorpay({
 // Using Middlewares
 
 app.use(session({
-    name: "connect.sid",
+    name: 'cookiename',
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 
     cookie:{
-        secure: process.env.NODE_ENV === "development" ? false : true,
-        httpOnly: process.env.NODE_ENV === "development" ? false : true,
-        sameSite: process.env.NODE_ENV === "development" ? false : "none",
+        secure: false,
+        httpOnly: false,
+        sameSite: false,
     }
 }));
 
