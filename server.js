@@ -22,6 +22,9 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 const app = express();
+app.use(cookieParser());
+app.use(express.json());
+app.use(urlencoded({extended: true}));
 
 dotenv.config({
     path:"./config/.env",
@@ -49,9 +52,6 @@ app.use(session({
     }
 }));
 
-app.use(cookieParser());
-app.use(express.json());
-app.use(urlencoded({extended: true}));
 
 app.use(cors({
     credentials: true,
