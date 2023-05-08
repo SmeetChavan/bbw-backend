@@ -40,11 +40,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 
-    // cookie: {
-        //     secure: false,
-        //     httpOnly: false,
-        //     sameSite: false,
-        // }
+    cookie: {
+            secure: false,
+            httpOnly: false,
+            sameSite: false,
+        }
     }));
     
 app.use(errorMiddleware);
