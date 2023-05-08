@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 import {connectPassport} from './utils/Provider.js'
-import session from 'express-session';
+// import session from 'express-session';
+import cookieSession from 'cookie-session';
 
 import Razorpay from 'razorpay';
 
@@ -22,7 +23,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 const app = express();
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({extended: true}));
 
@@ -39,18 +40,29 @@ export const instance = new Razorpay({
 
 // Using Middlewares
 
-app.use(session({
-    name: 'cookiename',
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+// app.use(session({
+//     name: 'cookiename',
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
 
-    cookie:{
-        secure: false,
-        httpOnly: false,
-        sameSite: false,
-    }
+//     cookie:{
+//         secure: false,
+//         httpOnly: false,
+//         sameSite: false,
+//     }
+// }));
+
+app.use(cookieSession({
+    name: 'cookiename',
+    secret: process.env.COOKIE_SECRET,
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    secure: false,
+    httpOnly: false,
+    sameSite: false,
 }));
+
+
 
 
 app.use(cors({
