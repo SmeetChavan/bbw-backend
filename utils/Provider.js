@@ -1,47 +1,41 @@
-import {Strategy} from 'passport-google-oauth20';
-import passport from 'passport';
-
-import User from '../models/User.js';
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import passport from "passport";
+import { User } from "../models/User.js";
 
 export const connectPassport = () => {
-
-    passport.use(new Strategy({
+  passport.use(
+    new GoogleStrategy(
+      {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CALLBACK_URL,
-
-    } , async function(accessToken , refreshToken , profile , done){
-
+      },
+      async function (accessToken, refreshToken, profile, done) {
         const user = await User.findOne({
-            googleId: profile.id
+          googleId: profile.id,
         });
 
-        if(!user){
+        if (!user) {
+          const newUser = await User.create({
+            googleId: profile.id,
+            name: profile.displayName,
+            photo: profile.photos[0].value,
+          });
 
-            const newUser = await User.create({
-                googleId: profile.id,
-                name: profile.displayName,
-                photo: profile.photos[0].value,
-            });
-
-            return done(null , newUser);
+          return done(null, newUser);
+        } else {
+          return done(null, user);
         }
-        else{
+      }
+    )
+  );
 
-            return done(null , user);
-        }
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
 
-    }));
-
-    passport.serializeUser((user , done) => {
-        done(null , user.id);
-    });
-
-    passport.deserializeUser(async (id , done) => {
-
-        const userr = await User.findById(id);
-
-        done(null , userr);
-    });
-
-}
+  passport.deserializeUser(async (id, done) => {
+    const user = await User.findById(id);
+    done(null, user);
+  });
+};

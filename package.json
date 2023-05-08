@@ -1,14 +1,14 @@
 {
-  "name": "backend",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "SET NODE_ENV=development & node server.js",
+    "start": "SET NODE_ENV=production & node server.js",
     "dev": "SET NODE_ENV=development & nodemon server.js"
   },
-  "author": "Smeet Chavan",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "cookie-parser": "^1.4.6",
