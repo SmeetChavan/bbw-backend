@@ -17,11 +17,6 @@ import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 import cors from 'cors';
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => {console.log("Connected to db")})
-.catch((error) => {console.log(error)})
-
-
 const app = express();
 // app.use(cookieParser());
 app.use(express.json());
@@ -41,21 +36,21 @@ export const instance = new Razorpay({
 // Using Middlewares
 
 // app.use(session({
-//     name: 'cookiename',
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-
-//     cookie:{
-//         secure: false,
-//         httpOnly: false,
-//         sameSite: false,
-//     }
+    //     name: 'cookiename',
+    //     secret: process.env.SESSION_SECRET,
+    //     resave: false,
+    //     saveUninitialized: false,
+    
+    //     cookie:{
+        //         secure: false,
+        //         httpOnly: false,
+        //         sameSite: false,
+        //     }
 // }));
 
 app.use(cookieSession({
     name: 'cookiename',
-    secret: process.env.COOKIE_SECRET,
+    secret: process.env.SESSION_SECRET,
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     secure: false,
     httpOnly: false,
@@ -87,6 +82,11 @@ app.use("/api/v1" , userRoutes);
 app.use("/api/v1" , orderRoutes);
 
 app.use(errorMiddleware);
+
+
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {console.log("Connected to db")})
+.catch((error) => {console.log(error)})
 
 app.listen(process.env.PORT , () => {
     console.log(`Listening on port ${process.env.PORT}... You are in ${process.env.NODE_ENV} mode`);
