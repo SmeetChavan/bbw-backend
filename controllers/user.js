@@ -15,19 +15,18 @@ export const logout = (req , res , next) => {
     req.session.destroy((err) => {
 
         if(err) return next(err);
-
-        // res.clearCookie('cookiename');
-        res.clearCookie('cookiename' , {
-            secure: true,
-            httpOnly: true,
-            sameSite: "none",
-        });
-
-        res.status(200).json({
-            message: "Logged Out",
-        })
-
+        
     });
+
+    res.clearCookie('cookiename' , {
+        secure: true,
+        httpOnly: true,
+        sameSite: "none",
+    });
+    
+    res.status(200).json({
+        message: "Logged Out",
+    })
 }
 
 export const getAllUsers = asyncError(async (req , res , next) => {
