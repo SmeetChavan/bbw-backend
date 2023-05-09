@@ -4,9 +4,16 @@ import Order from "../models/Order.js";
 
 export const myProfile = (req , res , next) => {
 
+    if(!req.user){
+        return res.status(434).json({
+            success: false,
+            user: "not logged in",
+        });
+    }
+
     res.status(200).json({
         success : true,
-        user : req.user ? req.user : "not logged in",
+        user : req.user,
     });
 };
 
