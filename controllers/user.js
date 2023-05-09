@@ -7,7 +7,7 @@ export const myProfile = (req , res , next) => {
     if(!req.user){
         return res.status(434).json({
             success: false,
-            user: "not logged in",
+            message: "please log in",
         });
     }
 
