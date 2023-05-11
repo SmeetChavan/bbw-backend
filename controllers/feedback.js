@@ -11,9 +11,17 @@ export const postFeedback = asyncError(async (req , res , next) => {
 
     const user = req.user._id;
 
-    await Feedback.create({name , email , message: msg , user});
+    const message = msg;
 
-    res.status(205).json({
+    const options = {
+        name,
+        email,
+        message,
+    };
+
+    await Feedback.create(options);
+
+    res.status(201).json({
         success: true,
         message: "Feedback noted",
     });
