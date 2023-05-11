@@ -5,11 +5,11 @@ export const isAuthenticated = (req , res , next) => {
     const token = req.cookies['cookiename'];
 
     if(!token){
-        return next(new ErrorHandler("Not Logged In" , 469));
+        return next(new ErrorHandler("Not Logged In" , 400));
     }
 
     if(!req.user){
-        return res.status(434).json({
+        return res.status(406).json({
             success: false,
             message: "Please log in",
         });
