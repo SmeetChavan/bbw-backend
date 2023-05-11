@@ -1,4 +1,4 @@
-import Feedback from "../models/Feedback";
+import Feedback from "../models/Feedback.js";
 import {asyncError} from "../middlewares/errorMiddleware.js";
 
 export const postFeedback = asyncError(async (req , res , next) => {
