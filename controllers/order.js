@@ -94,7 +94,7 @@ export const getMyOrders = asyncError(async (req , res , next) => {
 
     const orders = await Order.find({
         user: req.user._id,
-    }).populate('user' , 'name');
+    }).sort({createdAt : -1}).populate('user' , 'name');
 
     res.status(200).json({
         success: true,
@@ -104,7 +104,7 @@ export const getMyOrders = asyncError(async (req , res , next) => {
 
 export const getAdminOrders = asyncError(async (req , res , next) => {
 
-    const orders = await Order.find({}).populate("user" , "name");
+    const orders = await Order.find({}).sort({createdAt : -1}).populate("user" , "name");
 
     res.status(200).json({
         success: true,
