@@ -17,6 +17,7 @@ export const postFeedback = asyncError(async (req , res , next) => {
         name,
         email,
         message,
+        user,
     };
 
     await Feedback.create(options);
