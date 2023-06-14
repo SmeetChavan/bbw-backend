@@ -76,5 +76,5 @@ mongoose.connect(process.env.MONGO_URI)
     .catch((error) => { console.log(error) })
     
     app.listen(process.env.PORT, () => {
-        console.log(`Listening on port ${process.env.PORT}... You are in ${process.env.NODE_ENV} mode`);
+        console.log(`Listening on port ${process.env.PORT}... You are in ${process.env.NODE_ENV} mode!`);
     })
